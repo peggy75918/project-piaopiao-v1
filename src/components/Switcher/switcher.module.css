@@ -1,0 +1,15 @@
+/* 修改下拉選單背景色 */
+.ant-select-dropdown {
+    background-color: #f0f2f5 !important; /* 修改為淺灰色 */
+  }
+  
+  /* 修改選項的背景色 */
+  .ant-select-item {
+    background-color: #f0f2f5 !important; /* 修改為淺灰色 */
+  }
+  
+  /* 當選項被選中時的背景色 */
+  .ant-select-item-option-selected {
+    background-color: #1890ff !important; /* 修改為 Ant Design 的藍色 */
+    color: white !important;
+  }

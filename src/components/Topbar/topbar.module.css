@@ -1,0 +1,14 @@
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.topbar_project_name {
+    font-size: 18px;
+}
+
+.topbar_space {
+    width: 20px;
+}

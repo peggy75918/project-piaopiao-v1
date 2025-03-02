@@ -1,0 +1,50 @@
+.taskcard_container {
+    display: flex;
+    flex-direction: row;
+    height: 130px;
+    width: 100%;
+    background-color: #E8F3F6;
+    border-radius: 6px;
+}
+
+.taskcard_circle {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  margin-top: 11px;
+  margin-left: 11px;
+}
+
+.taskcard_content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 11px;
+    margin-top: 11px;
+    width: 100%;
+}
+
+.taskcard_text {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 6px;
+}
+
+.taskcard_time {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+.taskcard_timetext {
+    height: 31px;
+    width: 94px;
+    background-color: #89A8B2;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 31px;
+    margin-right: 11px;
+    margin-bottom: 11px;
+}

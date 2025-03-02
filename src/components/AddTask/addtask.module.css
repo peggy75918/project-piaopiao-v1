@@ -1,0 +1,133 @@
+.addtask_container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 22px);
+  max-width: 600px;
+  padding: 11px;
+  background-color: #E8F3F6;
+  border-radius: 6px;
+  margin: auto;
+}
+
+.addtask_inputGroup {
+    display: flex;
+    margin-bottom: 6px;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.addtask_label {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+.addtask_input {
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.addtask_textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.addtask_checkbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.addtask_checkboxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.addtask_checkboxContent {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+input[type="checkbox"] {
+    width: 20px;  /* 改變大小 */
+    height: 20px; /* 改變大小 */
+    accent-color: #89A8B2; /* 改變顏色 */
+}
+
+.addtask_uncompletedText {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.addtask_completedText {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.addtask_deleteButton {
+    background-color: #E8F3F6;
+    border: none;
+    padding: 5px;
+}
+
+.addtask_line {
+    width: 100%;
+    height: 1px;
+    background-color: #89A8B2;
+    margin: 1px 0;
+}
+
+.addtask_newProgressInput {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.addtask_newinput {
+    padding: 5px;
+    padding-left: 7px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    background-color: #E8F3F6;
+}
+
+.addtask_addButton {
+    background-color: #E8F3F6;
+    border: none;
+    padding: 5px;
+}
+
+.addtask_buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 11px;
+}
+
+.addtask_cancelButton {
+    background-color: #EF9B9B;
+    color: white;
+    font-size: 16px;
+    border: none;
+    padding: 6px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.addtask_saveButton {
+    background-color: #89A8B2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    padding: 6px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+}
