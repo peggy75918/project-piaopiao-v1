@@ -8,7 +8,29 @@ import Notification from './pages/Notification'
 import Personal from './pages/Personal'
 import './App.css'
 
+import { useEffect, useState } from "react";
+import { initLiff } from "./utils/liff";
+
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const storedLineId = localStorage.getItem("line_id");
+      
+      if (storedLineId) {
+        console.log("✅ 使用已儲存的 LINE ID:", storedLineId);
+        return; // 如果已經有 line_id，就不重新登入
+      }
+
+      const userInfo = await initLiff();
+      if (userInfo) {
+        setUser(userInfo);
+      }
+    };
+
+    checkUser();
+  }, []);
 
   return (
     <>

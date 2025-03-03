@@ -1,6 +1,5 @@
 import { useEffect,useState } from 'react'
 import { supabase } from "../lib/supabase";
-import { initLiff } from "../utils/liff";
 import { Link } from 'react-router-dom';
 import { EditOutlined } from "@ant-design/icons"
 import imgwall from '../assets/鼓勵牆.png'
@@ -22,16 +21,29 @@ function Home() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const lineUser = await initLiff();
-      if (lineUser) {
-        const { data, error } = await supabase
-          .from("users")
-          .upsert([{ line_id: lineUser.line_id, name: lineUser.name }], { onConflict: ["line_id"] });
-        if (error) console.error("Supabase 錯誤:", error);
-        setUser(lineUser);
+      const storedLineId = localStorage.getItem("line_id");
+      if (!storedLineId) {
+        console.error("❌ 找不到 `line_id`，可能尚未登入");
+        return;
+      }
+
+      console.log("📢 查詢 Supabase 使用者資料...");
+      const { data, error } = await supabase
+        .from("users")
+        .select("line_id, name, picture")
+        .eq("line_id", storedLineId)
+        .maybeSingle();
+
+      if (error) {
+        console.error("❌ 讀取 Supabase 使用者資料失敗", error);
+      } else if (!data) {
+        console.warn("⚠️ 沒有找到對應的 `line_id` 使用者");
+      } else {
+        console.log("✅ Supabase 使用者資料:", data);
+        setUser(data);
       }
     };
-  
+
     fetchUser();
   }, []);
   
@@ -108,11 +120,6 @@ function Home() {
         </Link>
       </div>
 
-      <div>
-        <h1>歡迎, {user?.name}</h1>
-        <p>你的 LINE ID: {user?.line_id}</p>
-      </div>
-
       {/* 進度控制按鈕 */}
       <button onClick={() => setProgress(progress + 10)} disabled={progress >= 100}>
         增加進度
@@ -120,6 +127,18 @@ function Home() {
       <button onClick={() => setProgress(progress - 10)} disabled={progress <= 0}>
         減少進度
       </button>
+
+      <div>
+        <h1>LINE 登入測試</h1>
+        {user ? (
+          <div>
+            <p>👤 {user.name}</p>
+            <img src={user.picture} alt="頭像" width="100" />
+          </div>
+        ) : (
+          <p>載入中...</p>
+        )}
+      </div>
     </>
   )
 }
