@@ -1,14 +1,26 @@
 import Topbar from '../components/Topbar'
-import AddTask from '../components/AddTask'
+import UnderConstruction from '../assets/建置中.png'
+import styles from './suggestion.module.css'
 
 function Progress(){
-    
     return (
         <div>
-            <Topbar />
-            <AddTask />
+          <Topbar />
+          <div className={styles.suggestion_container}>
+            <p style={{margin: "0px", marginBottom: "20px"}}>👻 進度追蹤功能將於3/28開放使用</p>
+            <img src={UnderConstruction} className={styles.suggestion_img} alt="cloud" />
+            <a 
+                href="https://www.flaticon.com/free-icons/process" 
+                title="process icons"
+                className={styles.suggestion_alink}
+            >
+                Process icons created by Freepik - Flaticon
+            </a>
+          </div>
         </div>
     )
 }
 
 export default Progress
+
+

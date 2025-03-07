@@ -5,10 +5,6 @@ const LIFF_ID = import.meta.env.MODE === "development"
   ? import.meta.env.VITE_LIFF_ID_DEV
   : import.meta.env.VITE_LIFF_ID_PROD;
 
-const LIFF_REDIRECT_URI = import.meta.env.MODE === "development"
-  ? import.meta.env.VITE_LIFF_REDIRECT_DEV
-  : import.meta.env.VITE_LIFF_REDIRECT_PROD;
-
 export const initLiff = async () => {
   try {
     console.log("🚀 初始化 LIFF...");
@@ -16,7 +12,7 @@ export const initLiff = async () => {
 
     if (!liff.isLoggedIn()) {
       console.warn("⚠️ 尚未登入，進行 LIFF 登入...");
-      liff.login({ redirectUri: LIFF_REDIRECT_URI });
+      liff.login();
       return;
     }
 
@@ -28,28 +24,59 @@ export const initLiff = async () => {
     }
 
     console.log("🔍 LINE 使用者資訊：", profile);
+    const userId = profile.userId;
 
-    // **使用 `upsert()` 確保 `line_id` 存在則更新，不存在則插入**
-    console.log("📝 嘗試插入或更新 `users` 資料表...");
-    const { data, error } = await supabase.from("users").upsert([
-      {
-        line_id: profile.userId,
-        name: profile.displayName,
-        picture: profile.pictureUrl,
-      }
-    ]).select();
+    // **先檢查是否已經存在該 `line_id`**
+    console.log("📢 檢查使用者是否已存在...");
+    const { data: existingUser, error: checkError } = await supabase
+      .from("users")
+      .select("line_id")
+      .eq("line_id", userId)
+      .maybeSingle();
 
-    if (error) {
-      console.error("❌ `supabase.upsert()` 失敗！", error);
-    } else {
-      console.log("✅ 使用者成功寫入 Supabase！", data);
+    if (checkError) {
+      console.error("❌ 查詢 `users` 失敗！", checkError);
     }
 
-    // **儲存 `line_id` 到 `localStorage`，避免重複查詢**
-    localStorage.setItem("line_id", profile.userId);
+    if (existingUser) {
+      console.log("✅ 使用者已存在，更新資料...");
+      const { error: updateError } = await supabase
+        .from("users")
+        .update({
+          name: profile.displayName,
+          picture: profile.pictureUrl,
+        })
+        .eq("line_id", userId);
+
+      if (updateError) {
+        console.error("❌ 更新 `users` 失敗！", updateError);
+      } else {
+        console.log("✅ 使用者資料更新成功！");
+      }
+    } else {
+      console.log("📝 使用者不存在，插入新資料...");
+      const { error: insertError } = await supabase
+        .from("users")
+        .insert([
+          {
+            line_id: userId,
+            name: profile.displayName,
+            picture: profile.pictureUrl,
+          },
+        ]);
+
+      if (insertError) {
+        console.error("❌ 插入 `users` 失敗！", insertError);
+      } else {
+        console.log("✅ 使用者成功寫入 Supabase！");
+      }
+    }
+
+    // **儲存 `line_id` 到 `localStorage`**
+    localStorage.setItem("line_id", userId);
 
     return {
-      line_id: profile.userId,
+      line_id: userId,
       name: profile.displayName,
       picture: profile.pictureUrl,
     };
@@ -58,6 +85,7 @@ export const initLiff = async () => {
     return null;
   }
 };
+
 
 
 

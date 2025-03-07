@@ -1,33 +1,31 @@
 import { useState } from "react";
-import { Select } from "antd";
-import './switcher.module.css'
 
-const { Option } = Select;
-
-const Switcher = () => {
-  const [selectedContent, setSelectedContent] = useState("option1");
+function Switcher({ stageCount, selectedStage, setSelectedStage }) {
+  const handleStageChange = (event) => {
+    setSelectedStage(parseInt(event.target.value, 10)); // 更新階段數
+  };
 
   return (
-    <div>
-      {/* 下拉式選單 */}
-      <Select
-        defaultValue="option1"
-        style={{ width: 200 }}
-        onChange={(value) => setSelectedContent(value)}
+    <div style={{ margin: "15px", textAlign: "center" }}>
+      <label style={{ fontSize: "16px", marginRight: "10px" }}>當前階段：</label>
+      <select
+        value={selectedStage}
+        onChange={handleStageChange}
+        style={{
+          fontSize: "16px",
+          padding: "5px",
+          borderRadius: "4px",
+          border: "1px solid #ccc",
+        }}
       >
-        <Option value="option1">當前階段：第一階段</Option>
-        <Option value="option2">當前階段：第二階段</Option>
-        <Option value="option3">當前階段：第三階段</Option>
-      </Select>
-
-      {/* 根據選擇的內容顯示不同的區塊 */}
-      <div className={{ marginTop: 20 }}>
-        {selectedContent === "option1" && <p>這是 **內容 1**</p>}
-        {selectedContent === "option2" && <p>這是 **內容 2**</p>}
-        {selectedContent === "option3" && <p>這是 **內容 3**</p>}
-      </div>
+        {[...Array(stageCount)].map((_, index) => (
+          <option key={index + 1} value={index + 1}>
+            第 {index + 1} 階段
+          </option>
+        ))}
+      </select>
     </div>
   );
-};
+}
 
 export default Switcher;

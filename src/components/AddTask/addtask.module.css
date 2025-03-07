@@ -35,6 +35,8 @@
     border: none;
     border-radius: 6px;
     background-color: #fff;
+    min-height: 40px;
+    resize: vertical;
 }
 
 .addtask_checkbox {

@@ -2,11 +2,105 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 22px;
+    margin-bottom: 15px;
 }
 
+.topbar_btn {
+    background: white;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+}
+  
+.topbar_drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 170px;
+    height: 100%;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    padding-top: 24px;
+    z-index: 100;
+}
+  
+.topbar_drawerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 22px;
+}
+  
+.topbar_drawerHeader h2 {
+    margin: 0;
+    font-size: 20px;
+}
+  
+.topbar_drawerHeader button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.topbar_userProfile {
+    margin: 0 15px;
+}
+
+.topbar_userAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.topbar_welcomeText {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #153448;
+    font-weight: bold;
+}
+
+.topbar_line {
+    width: 100%;
+    height: 1px;
+    background: #f0f0f0;
+}
+  
+.topbar_menu {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+}
+  
+.topbar_menu li {
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+  
+.topbar_menu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+  
+.topbar_menu li:hover {
+    background: #f0f0f0;
+}
+
+  
 .topbar_project_name {
     font-size: 18px;
+    font-weight: bold;
 }
 
 .topbar_space {

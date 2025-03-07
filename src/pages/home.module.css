@@ -5,6 +5,8 @@
 
 .home_project_name {
   font-size: 18px;
+  font-weight: bold;
+  color: #153448;
   margin: 0;
 }
 
@@ -39,6 +41,8 @@
 .home_wall_text {
   position: absolute;
   font-size: 14px;
+  font-weight: bold;
+  color: #153448;
   margin: 0;
   bottom: 4px;
   right: 10px; 

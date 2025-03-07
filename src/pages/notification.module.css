@@ -1,0 +1,16 @@
+.notification_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notification_img {
+    margin: auto;
+    width: 50%;
+    opacity: 50%;
+}
+
+.notification_alink {
+    margin-top: 10px;
+    font-size: 12px;
+}
