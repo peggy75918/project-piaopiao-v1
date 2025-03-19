@@ -56,7 +56,12 @@ const Topbar = ({ projectId: propProjectId }) => {
         <div className={styles.topbar_drawer}>
           <div className={styles.topbar_drawerHeader}>
             <h2> </h2>
-            <button onClick={() => setVisible(false)}>✖</button>
+            <button 
+              onClick={() => setVisible(false)}
+              style={{ padding: "0"}}
+            >
+              ✖
+            </button>
           </div>
 
           <div className={styles.topbar_userProfile}>

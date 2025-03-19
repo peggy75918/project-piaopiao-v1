@@ -157,6 +157,50 @@ const TaskDetail = ({ taskId, onClose }) => {
     }
   };
 
+  // ✅ **刪除任務**
+  const handleDelete = async () => {
+    const isConfirmed = window.confirm("確定要刪除這個任務嗎？");
+    if (!isConfirmed) return;
+
+    const { error } = await supabase.from("tasks").delete().eq("id", taskId);
+    if (error) {
+      console.error("❌ 刪除失敗", error);
+      alert("刪除失敗，請稍後再試！");
+    } else {
+      alert("✅ 任務已刪除");
+      onClose(); // 回到任務列表
+    }
+  };
+
+  // ✅ **完成任務**
+  const handleComplete = async () => {
+    if (checklist.length === 0) {
+      alert("⚠️ 此任務沒有待辦清單項目！");
+      return;
+    }
+  
+    const isConfirmed = window.confirm("確定要標記所有待辦事項為完成嗎？");
+    if (!isConfirmed) return;
+  
+    try {
+      // 更新所有 checklist 為 `is_done: true`
+      await Promise.all(
+        checklist.map((item) =>
+          supabase.from("task_checklists").update({ is_done: true }).eq("id", item.id)
+        )
+      );
+  
+      // 更新 UI
+      setChecklist((prev) => prev.map((item) => ({ ...item, is_done: true })));
+  
+      alert("✅ 所有待辦事項已完成！");
+      onClose(); // 回到清單列表
+    } catch (err) {
+      console.error("❌ 更新 checklist 失敗", err);
+      alert("更新失敗，請稍後再試！");
+    }
+  };
+
   if (loading) return <p className={styles.loading}>載入中...</p>;
   if (!task) return <p className={styles.error}>❌ 找不到任務</p>;
 
@@ -371,8 +415,8 @@ const TaskDetail = ({ taskId, onClose }) => {
       {/* ✅ 按鈕區域 */}
       <div className={styles.taskdetail_btnContainer}>
         <button className={styles.taskdetail_closeButton} onClick={onClose}>返回</button>
-        <button className={styles.taskdetail_deleteButton} onClick={() => console.log("刪除任務")}>刪除</button>
-        <button className={styles.taskdetail_completeButton} onClick={() => checklist.forEach((item) => toggleChecklistItem(item.id, true))}>完成</button>
+        <button className={styles.taskdetail_deleteButton} onClick={handleDelete}>刪除</button>
+        <button className={styles.taskdetail_completeButton} onClick={handleComplete}>完成</button>
       </div>
     </div>
   );

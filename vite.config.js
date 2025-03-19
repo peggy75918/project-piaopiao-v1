@@ -13,7 +13,7 @@ export default defineConfig({
       clientPort: 443, // 確保 Hot Module Reload (HMR) 運行在 HTTPS
     },
     allowedHosts: [
-      "localhost", "60ee-219-85-43-234.ngrok-free.app" // 或者改為 ["localhost", "your-ngrok-subdomain.ngrok-free.app"]
+      "localhost", "9ba9-1-162-133-244.ngrok-free.app" // 或者改為 ["localhost", "your-ngrok-subdomain.ngrok-free.app"]
     ],
   },
 });
