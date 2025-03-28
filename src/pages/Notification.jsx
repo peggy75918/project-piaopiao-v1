@@ -1,5 +1,6 @@
 import Topbar from '../components/Topbar'
-import UnderConstruction from '../assets/建置中.png'
+
+import MemberImg from '../assets/專案成員資料3.png'
 import styles from './notification.module.css'
 
 function Notification(){
@@ -7,16 +8,15 @@ function Notification(){
     return (
         <div>
             <Topbar />
-            <div className={styles.notification_container}>
-                <p style={{margin: "0px", marginBottom: "20px"}}>👻 通知設定功能將於3/28開放使用</p>
-                <img src={UnderConstruction} className={styles.notification_img} alt="cloud" />
-                <a 
-                    href="https://www.flaticon.com/free-icons/process" 
-                    title="process icons"
-                    className={styles.notification_alink}
-                >
-                    Process icons created by Freepik - Flaticon
-                </a>
+            <div className={styles.attribution_container}>
+                <p className={styles.attribution_title}>Image Attribution</p>
+                <div className={styles.attribution_content}>
+                    <img src={MemberImg} className={styles.attribution_img} alt="MemberImg" />
+                    <a href="https://www.flaticon.com/free-icons/supplier" title="supplier icons" className={styles.attribution_alink}>Supplier icons created by zero_wing - Flaticon</a>
+                </div>
+                <div>
+
+                </div>
             </div>
         </div>
     )

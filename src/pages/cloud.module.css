@@ -1,16 +1,27 @@
-.cloud_container {
+.container {
+    max-width: 800px;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #153448;
+}
+
+.list {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 20px;
 }
 
-.cloud_img {
-    margin: auto;
-    width: 50%;
-    opacity: 50%;
+.loading {
+    text-align: center;
+    color: #777;
 }
 
-.cloud_alink {
-    margin-top: 10px;
-    font-size: 12px;
+.empty {
+    text-align: center;
+    color: #aaa;
+    margin-top: 40px;
 }
+  

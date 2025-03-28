@@ -1,0 +1,116 @@
+.member_container {
+    margin: 0 auto;
+}
+
+.card_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.member_card {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 11px 11px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-color: #fff;
+}
+
+.member_name {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  margin: 0;
+}
+
+.tag_area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag_selected {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tag_unselected {
+  background-color: #f0f0f0;
+  color: #555;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tag_selected:hover,
+.tag_unselected:hover {
+  opacity: 0.85;
+}
+
+.custom_tag_btn {
+  background-color: #fff;
+  color: #4a90e2;
+  border: 1px dashed #4a90e2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.member_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.readonly_tag {
+  background-color: #f0f0f0;
+  color: #444;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.placeholder_tag {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+
+.task_info {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+  display: flex;
+  gap: 12px;
+}
+
+.button_row {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.button_row button {
+  margin: 0 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+}
+
+.button_row button:hover {
+  opacity: 0.9;
+}
+  

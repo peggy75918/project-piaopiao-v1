@@ -7,7 +7,7 @@ function Suggestion(){
         <div>
           <Topbar />
           <div className={styles.suggestion_container}>
-            <p style={{margin: "0px", marginBottom: "20px"}}>👻 建議箱功能將於3/28開放使用</p>
+            <p style={{margin: "0px", marginBottom: "20px"}}>👻 建議箱功能將於第二階段完成後開放使用</p>
             <img src={UnderConstruction} className={styles.suggestion_img} alt="cloud" />
             <a 
                 href="https://www.flaticon.com/free-icons/process" 

@@ -5,6 +5,7 @@ import styles from "./projects.module.css";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true); // 加入 loading 狀態避免跳轉錯誤
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,6 +13,7 @@ function Projects() {
       const storedLineId = localStorage.getItem("line_id");
       if (!storedLineId) {
         console.error("❌ 找不到 `line_id`，可能尚未登入");
+        setLoading(false);
         return;
       }
 
@@ -23,11 +25,13 @@ function Projects() {
 
       if (projectError) {
         console.error("❌ 查詢 `project_members` 失敗", projectError);
+        setLoading(false);
         return;
       }
 
       if (!projectMembers || projectMembers.length === 0) {
         console.warn("⚠️ 目前沒有加入任何專案");
+        setLoading(false);
         return;
       }
 
@@ -42,11 +46,13 @@ function Projects() {
 
       if (projectError2) {
         console.error("❌ 查詢 `projects` 失敗", projectError2);
+        setLoading(false);
         return;
       }
 
       console.log("✅ 專案列表:", projects);
       setProjects(projects);
+      setLoading(false);
     };
 
     fetchProjects();
@@ -57,6 +63,10 @@ function Projects() {
     localStorage.setItem("project_id", projectId);
     navigate("/home"); // 進入專案頁面
   };
+
+  if (loading) {
+    return <p style={{ textAlign: "center" }}>⏳ 載入中...</p>;
+  }
 
   return (
     <div className={styles.projectsContainer}>

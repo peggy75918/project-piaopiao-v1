@@ -100,7 +100,7 @@ const Topbar = ({ projectId: propProjectId }) => {
               style={location.pathname === "/cloud" ? { backgroundColor: "#89a8b2", color: "white" } : {}}
             >
               <Link to={`/cloud`} style={location.pathname === "/cloud" ? { color: "white" } : {}}>
-                共用雲端
+                資料共享
               </Link>
             </li>
             <li
@@ -111,10 +111,10 @@ const Topbar = ({ projectId: propProjectId }) => {
               </Link>
             </li>
             <li
-              style={location.pathname === "/notification" ? { backgroundColor: "#89a8b2", color: "white" } : {}}
+              style={location.pathname === "/memberprofile" ? { backgroundColor: "#89a8b2", color: "white" } : {}}
             >
-              <Link to={`/notification`} style={location.pathname === "/notification" ? { color: "white" } : {}}>
-                通知設定
+              <Link to={`/memberprofile`} style={location.pathname === "/memberprofile" ? { color: "white" } : {}}>
+                專案成員資料
               </Link>
             </li>
             <li

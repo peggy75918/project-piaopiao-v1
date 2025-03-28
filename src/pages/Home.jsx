@@ -6,9 +6,9 @@ import { EditOutlined, CheckOutlined } from "@ant-design/icons";
 import imgwall from "../assets/鼓勵牆.png";
 import imgtasklist from "../assets/任務清單.png";
 import imgprogressRate from "../assets/進度追蹤.png";
-import imgcloud from "../assets/共用雲端.png";
+import imgcloud from "../assets/資料共享.png";
 import imgsuggestion from "../assets/建議箱.png";
-import imgnotification from "../assets/通知設定.png";
+import imgnotification from "../assets/專案成員資料3.png";
 import imgpersonal from "../assets/個人專案管理.png";
 import styles from "./home.module.css";
 
@@ -219,7 +219,7 @@ function Home() {
         <Link to={'/cloud'}>
           <div className={styles.home_op2}>
             <img src={imgcloud} className={styles.home_op_img} alt="cloud" />
-            <p className={styles.home_op_text}>共用雲端</p>
+            <p className={styles.home_op_text}>資料共享</p>
           </div>
         </Link>
         <Link to={'/suggestion'}>
@@ -228,16 +228,21 @@ function Home() {
             <p className={styles.home_op_text}>建議箱</p>
           </div>
         </Link>
-        <Link to={'/notification'}>
+        <Link to={'/memberprofile'}>
           <div className={styles.home_op1}>
-            <img src={imgnotification} className={styles.home_op_img} alt="notification" />
-            <p className={styles.home_op_text}>通知設定</p>
+            <img src={imgnotification} className={styles.home_op_img} alt="memberprofile" />
+            <p className={styles.home_op_text}>專案成員資料</p>
           </div>
         </Link>
         <Link to={'/personal'}>
           <div className={styles.home_op2}>
             <img src={imgpersonal} className={styles.home_op_img} alt="personal" />
             <p className={styles.home_op_text}>個人專案管理</p>
+          </div>
+        </Link>
+        <Link to={'/notification'}>
+          <div>
+            <p>Attribution Page</p>
           </div>
         </Link>
       </div>

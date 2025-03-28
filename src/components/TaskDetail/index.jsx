@@ -14,13 +14,8 @@ const TaskDetail = ({ taskId, onClose }) => {
   const [editingChecklist, setEditingChecklist] = useState(null);
   const [newChecklistItem, setNewChecklistItem] = useState(""); // 新增待辦事項
 
-  console.log("📌 `TaskDetail` 接收到的 `taskId`:", taskId);
-
   useEffect(() => {
-    if (!taskId) {
-      console.error("❌ `taskId` 為 undefined，無法查詢任務！");
-      return;
-    }
+    if (!taskId) return;
 
     const fetchTaskDetail = async () => {
       try {
@@ -30,36 +25,29 @@ const TaskDetail = ({ taskId, onClose }) => {
           .eq("id", taskId)
           .maybeSingle();
 
-        if (error) throw error;
-        if (!data) {
-          console.warn("⚠️ 找不到對應的任務");
-          return;
-        }
+        if (error || !data) return;
         setTask(data);
 
-        const { data: user, error: userError } = await supabase
+        const { data: user } = await supabase
           .from("users")
           .select("name, picture")
           .eq("line_id", data.assignee_id)
           .maybeSingle();
 
-        if (userError) console.error("❌ 無法讀取負責人", userError);
-        else setAssignee(user);
+        if (user) setAssignee(user);
 
-        const { data: checklistData, error: checklistError } = await supabase
+        const { data: checklistData } = await supabase
           .from("task_checklists")
-          .select("id, content, is_done")
+          .select("id, content, is_done, updated_at, completed_at")
           .eq("task_id", taskId);
 
-        if (checklistError) throw checklistError;
         setChecklist(checklistData);
 
-        const { data: memberData, error: memberError } = await supabase
+        const { data: memberData } = await supabase
           .from("project_members")
           .select("user_id, real_name")
           .eq("project_id", data.project_id);
 
-        if (memberError) throw memberError;
         setMembers(memberData);
       } catch (err) {
         console.error("❌ 任務讀取失敗", err);
@@ -71,38 +59,43 @@ const TaskDetail = ({ taskId, onClose }) => {
     fetchTaskDetail();
   }, [taskId]);
 
-  // ✅ **進入編輯模式**
   const startEditing = (field, currentValue) => {
     setEditingField(field);
     setTempValue(currentValue);
   };
 
-  // ✅ **更新任務欄位**
+  // ✅ 更新任務欄位，若為 due_date 則轉為 UTC
   const updateTaskField = async () => {
     try {
-      await supabase
-        .from("tasks")
-        .update({ [editingField]: tempValue })
-        .eq("id", taskId);
+      let value = tempValue;
 
-      setTask((prev) => ({ ...prev, [editingField]: tempValue }));
+      if (editingField === "due_date") {
+        const localDate = new Date(tempValue);
+        const utcDate = new Date(localDate.getTime() - 8 * 60 * 60 * 1000);
+        value = utcDate.toISOString().split("T")[0];
+      }
+
+      await supabase.from("tasks").update({ [editingField]: value }).eq("id", taskId);
+      setTask((prev) => ({ ...prev, [editingField]: value }));
       setEditingField(null);
     } catch (err) {
       console.error(`❌ 更新 ${editingField} 失敗`, err);
     }
   };
 
-  // ✅ **勾選/取消勾選待辦清單**
+  // ✅ 勾選/取消勾選並記錄 completed_at
   const toggleChecklistItem = async (itemId, newStatus) => {
     try {
-      await supabase
-        .from("task_checklists")
-        .update({ is_done: newStatus })
-        .eq("id", itemId);
+      const updateFields = {
+        is_done: newStatus,
+        completed_at: newStatus ? new Date().toISOString() : null,
+      };
+
+      await supabase.from("task_checklists").update(updateFields).eq("id", itemId);
 
       setChecklist((prev) =>
         prev.map((item) =>
-          item.id === itemId ? { ...item, is_done: newStatus } : item
+          item.id === itemId ? { ...item, ...updateFields } : item
         )
       );
     } catch (err) {
@@ -110,17 +103,18 @@ const TaskDetail = ({ taskId, onClose }) => {
     }
   };
 
-  // ✅ **更新待辦清單內容**
+  // ✅ 更新 checklist 並記錄 updated_at
   const updateChecklistContent = async (itemId) => {
     try {
+      const now = new Date().toISOString();
       await supabase
         .from("task_checklists")
-        .update({ content: tempValue })
+        .update({ content: tempValue, updated_at: now })
         .eq("id", itemId);
 
       setChecklist((prev) =>
         prev.map((item) =>
-          item.id === itemId ? { ...item, content: tempValue } : item
+          item.id === itemId ? { ...item, content: tempValue, updated_at: now } : item
         )
       );
       setEditingChecklist(null);
@@ -129,13 +123,19 @@ const TaskDetail = ({ taskId, onClose }) => {
     }
   };
 
-  // ✅ **新增待辦清單**
+  // ✅ 新增 checklist 並記錄 updated_at
   const addChecklistItem = async () => {
     if (!newChecklistItem) return;
     try {
+      const now = new Date().toISOString();
       const { data, error } = await supabase
         .from("task_checklists")
-        .insert([{ task_id: taskId, content: newChecklistItem, is_done: false }])
+        .insert([{
+          task_id: taskId,
+          content: newChecklistItem,
+          is_done: false,
+          updated_at: now
+        }])
         .select("*")
         .single();
 
@@ -147,7 +147,6 @@ const TaskDetail = ({ taskId, onClose }) => {
     }
   };
 
-  // ✅ **刪除待辦項目**
   const deleteChecklistItem = async (itemId) => {
     try {
       await supabase.from("task_checklists").delete().eq("id", itemId);
@@ -157,47 +156,39 @@ const TaskDetail = ({ taskId, onClose }) => {
     }
   };
 
-  // ✅ **刪除任務**
   const handleDelete = async () => {
     const isConfirmed = window.confirm("確定要刪除這個任務嗎？");
     if (!isConfirmed) return;
 
     const { error } = await supabase.from("tasks").delete().eq("id", taskId);
-    if (error) {
-      console.error("❌ 刪除失敗", error);
-      alert("刪除失敗，請稍後再試！");
-    } else {
+    if (!error) {
       alert("✅ 任務已刪除");
-      onClose(); // 回到任務列表
+      onClose();
+    } else {
+      alert("刪除失敗，請稍後再試！");
     }
   };
 
-  // ✅ **完成任務**
+  // ✅ 完成全部 checklist 並記錄 completed_at
   const handleComplete = async () => {
-    if (checklist.length === 0) {
-      alert("⚠️ 此任務沒有待辦清單項目！");
-      return;
-    }
-  
-    const isConfirmed = window.confirm("確定要標記所有待辦事項為完成嗎？");
-    if (!isConfirmed) return;
-  
+    if (checklist.length === 0) return;
+    const now = new Date().toISOString();
+
     try {
-      // 更新所有 checklist 為 `is_done: true`
       await Promise.all(
         checklist.map((item) =>
-          supabase.from("task_checklists").update({ is_done: true }).eq("id", item.id)
+          supabase
+            .from("task_checklists")
+            .update({ is_done: true, completed_at: now })
+            .eq("id", item.id)
         )
       );
-  
-      // 更新 UI
-      setChecklist((prev) => prev.map((item) => ({ ...item, is_done: true })));
-  
+
+      setChecklist((prev) => prev.map((item) => ({ ...item, is_done: true, completed_at: now })));
       alert("✅ 所有待辦事項已完成！");
-      onClose(); // 回到清單列表
+      onClose();
     } catch (err) {
       console.error("❌ 更新 checklist 失敗", err);
-      alert("更新失敗，請稍後再試！");
     }
   };
 
@@ -416,7 +407,7 @@ const TaskDetail = ({ taskId, onClose }) => {
       <div className={styles.taskdetail_btnContainer}>
         <button className={styles.taskdetail_closeButton} onClick={onClose}>返回</button>
         <button className={styles.taskdetail_deleteButton} onClick={handleDelete}>刪除</button>
-        <button className={styles.taskdetail_completeButton} onClick={handleComplete}>完成</button>
+        <button className={styles.taskdetail_completeButton} onClick={handleComplete}>完成任務</button>
       </div>
     </div>
   );

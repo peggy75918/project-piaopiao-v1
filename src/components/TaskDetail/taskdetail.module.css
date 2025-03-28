@@ -68,7 +68,9 @@
     color: white;
     font-size: 16px;
     border: none;
-    padding: 6px 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 32%;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -78,7 +80,9 @@
     color: white;
     font-size: 16px;
     border: none;
-    padding: 6px 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 32%;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -88,7 +92,11 @@
     color: white;
     font-size: 16px;
     border: none;
-    padding: 6px 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 32%;
+    padding-left: 0;
+    padding-right: 0;
     border-radius: 6px;
     cursor: pointer;
 }

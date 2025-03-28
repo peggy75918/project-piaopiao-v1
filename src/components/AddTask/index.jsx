@@ -14,6 +14,10 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
   ]);
   const [newProgress, setNewProgress] = useState("");
 
+  // 任務模板資料
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplateId, setSelectedTemplateId] = useState("");
+
   useEffect(() => {
     const fetchProjectMembers = async () => {
       if (!projectId) return;
@@ -31,15 +35,23 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
         setMembers(data);
       }
     };
+
+    const fetchTemplates = async () => {
+      const { data, error } = await supabase
+        .from("task_templates")
+        .select("id, title, checklist, description");
+      if (!error) setTemplates(data);
+    };
   
     fetchProjectMembers();
+    fetchTemplates();
   }, [projectId]);
 
-  // **切換 checkbox 狀態**
-  const toggleCheckbox = (id) => {
-    setProgress(progress.map(item => 
-      item.id === id ? { ...item, completed: !item.completed } : item
-    ));
+  // 將台灣時間轉換為 UTC 格式
+  const toTaiwanDateUTC = (dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    const taiwanMidnight = new Date(Date.UTC(year, month - 1, day, -8, 0, 0));
+    return taiwanMidnight.toISOString();
   };
 
   // **新增待辦清單項目**
@@ -55,10 +67,31 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
     setProgress(progress.filter(item => item.id !== id));
   };
 
+  // **套用任務模板**
+  const handleTemplateChange = (id) => {
+    setSelectedTemplateId(id);
+    const template = templates.find(t => t.id === id);
+    if (template) {
+      setTaskName(template.title);
+      setTaskContent(template.description || "");
+      const items = (template.checklist || []).map(item => ({
+        id: uuidv4(),
+        text: item.text,
+        completed: false
+      }));
+      setProgress(items);
+    }
+  };
+
   // **提交任務**
   const handleSubmit = async () => {
     if (!taskName || !responsible || !dueDate || !taskContent) {
       alert("⚠️ 請填寫所有欄位！");
+      return;
+    }
+
+    if (progress.length === 0) {
+      alert("⚠️ 請至少新增一項待辦內容！");
       return;
     }
 
@@ -72,7 +105,7 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
         status: stage, // 當前階段
         title: taskName,
         assignee_id: responsible,
-        due_date: dueDate,
+        due_date: toTaiwanDateUTC(dueDate),
         description: taskContent,
       },
     ]);
@@ -83,20 +116,19 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
       return;
     }
 
-    // **2️⃣ 插入 `task_checklists`（如果有待辦清單）**
-    if (progress.length > 0) {
-      const checklistData = progress.map((item) => ({
-        task_id: taskId,
-        content: item.text,
-        is_done: item.completed,
-      }));
+    const now = new Date().toISOString();
+    const checklistData = progress.map((item) => ({
+      task_id: taskId,
+      content: item.text,
+      is_done: false,
+      updated_at: now,
+    }));
 
-      const { error: checklistError } = await supabase.from("task_checklists").insert(checklistData);
+    const { error: checklistError } = await supabase.from("task_checklists").insert(checklistData);
 
-      if (checklistError) {
+    if (checklistError) {
         console.error("❌ 代辦清單新增失敗", checklistError);
         alert("❌ 部分任務可能未正確儲存！");
-      }
     }
 
     alert("✅ 任務新增成功！");
@@ -105,6 +137,21 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
 
   return (
     <div className={styles.addtask_container}>
+      {/* 任務模板下拉選單 */}
+      <div className={styles.addtask_inputGroup}>
+        <label className={styles.addtask_label}>套用任務模板：</label>
+        <select
+          value={selectedTemplateId}
+          onChange={(e) => handleTemplateChange(e.target.value)}
+          className={styles.addtask_input}
+        >
+          <option value="">請選擇模板</option>
+          {templates.map((tpl) => (
+            <option key={tpl.id} value={tpl.id}>{tpl.title}</option>
+          ))}
+        </select>
+      </div>
+
       {/* 任務名稱 */}
       <div className={styles.addtask_inputGroup}>
         <label className={styles.addtask_label}>任務名稱：</label>
@@ -163,7 +210,7 @@ const AddTask = ({ onCancel, projectId, stage }) => { // 接收 `projectId` 和 
           <div key={item.id} className={styles.addtask_checkbox}>
             <div className={styles.addtask_checkboxContainer}>
               <div className={styles.addtask_checkboxContent}>
-                <input type="checkbox" checked={item.completed} onChange={() => toggleCheckbox(item.id)} />
+                <input type="checkbox" checked={item.completed} disabled />
                 <span className={item.completed ? styles.addtask_completedText : styles.addtask_uncompletedText}>{item.text}</span>
               </div>
               <button onClick={() => deleteProgressItem(item.id)} className={styles.addtask_deleteButton}>x</button>
