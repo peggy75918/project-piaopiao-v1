@@ -153,48 +153,49 @@ const ResourceCard = ({ resource, currentUserId, selectedTag, onSelectTag, onDel
   };
 
   return (
-    <>  
-        {resource.tag && (
-            <div
-                className={styles.resourcecard_tag}
-                style={{
-                color: selectedTag === resource.tag ? "white" : "#153448",
-                backgroundColor: selectedTag === resource.tag ? "#153448" : "#e0e0e0",
-                }}
-                onClick={() => onSelectTag(resource.tag)}
-            >
-                #{resource.tag}
-            </div>
-        )}
-
+    <> 
         <div className={styles.resourcecard_card}>
             <div className={styles.resourcecard_header}>
-                <h3 className={styles.resourcecard_title}>{resource.title}</h3>
+              <div className={styles.resourcecard_topbox}>
+                <div className={styles.resourcecard_topbox_start}>
+                  <h3 className={styles.resourcecard_title}>{resource.title}</h3>
+                  <a href={resource.link} target="_blank" rel="noreferrer" style={{ fontSize: "18px" }}>
+                    🔗{" "}
+                  </a>
+                </div>
                 <p className={styles.resourcecard_author}>{authorName}</p>
-                {resource.user_id === currentUserId && (
+              </div>
+              {resource.tag && (
+                  <div
+                      className={styles.resourcecard_tag}
+                      style={{
+                      color: selectedTag === resource.tag ? "white" : "#153448",
+                      backgroundColor: selectedTag === resource.tag ? "#153448" : "#e0e0e0",
+                      }}
+                      onClick={() => onSelectTag(resource.tag)}
+                  >
+                      #{resource.tag}
+                  </div>
+                )}              
+            </div>
+            
+            {resource.description && <p>{resource.description}</p>}
+            <div className={styles.resourcecard_btmbox}>
+              <div className={styles.resourcecard_actions}>
+                <button onClick={handleLike} ref={likeButtonRef}>
+                {liked ? "💙 已讚" : "🤍 點讚"}（{likeCount}）
+                </button>
+              </div>
+              {resource.user_id === currentUserId && (
                 <button
                     style={{ fontSize: "0.8rem", background: "none", color: "#c00", border: "none", cursor: "pointer" }}
                     onClick={handleDeleteResource}
                 >
                     刪除資源
                 </button>
-                )}
+              )}
             </div>
-
-            <p>
-                🔗{" "}
-                <a href={resource.link} target="_blank" rel="noreferrer">
-                點我前往連結
-                </a>
-            </p>
-
-            {resource.description && <p>{resource.description}</p>}
-
-            <div className={styles.resourcecard_actions}>
-                <button onClick={handleLike} ref={likeButtonRef}>
-                {liked ? "💙 已讚" : "🤍 點讚"}（{likeCount}）
-                </button>
-            </div>
+            
 
             <div className={styles.resourcecard_comments}>
                 {replies.map((reply) => {

@@ -1,15 +1,3 @@
-.resourcecard_tag {
-    margin-bottom: 8px;
-    font-size: 0.85rem;
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-  
-
 .resourcecard_card {
     background-color: #ffffff;
     border-radius: 10px;
@@ -19,92 +7,121 @@
 }
 
 .resourcecard_header {
-display: flex;
-justify-content: space-between;
-flex-wrap: wrap;
-margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.resourcecard_topbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.resourcecard_topbox_start {
+    display: flex;
+    flex-direction: row;
 }
 
 .resourcecard_title {
-font-weight: 600;
-font-size: 1.1rem;
-color: #153448;
-margin: 0;
-flex: 1;
+    font-weight: 600;
+    font-size: 18px;
+    color: #153448;
+    margin: 0;
+    flex: 1;
 }
 
 .resourcecard_title a {
-text-decoration: none;
-color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .resourcecard_title a:hover {
-text-decoration: underline;
+    text-decoration: underline;
 }
 
 .resourcecard_author {
-font-size: 0.85rem;
-color: #888;
-margin-top: 4px;
-min-width: 120px;
-text-align: right;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 4px;
+    min-width: 120px;
+    text-align: right;
+}
+
+.resourcecard_tag {
+    margin-bottom: 8px;
+    font-size: 14px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin: auto;
+    margin-left: 0;
 }
 
 .resourcecard_actions {
-margin-top: 10px;
+    margin-top: 10px;
 }
 
 .resourcecard_actions button {
-background-color: #f2f2f2;
-border: none;
-padding: 6px 12px;
-border-radius: 6px;
-cursor: pointer;
-font-size: 0.9rem;
+    background-color: #f2f2f2;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .resourcecard_actions button:hover {
-background-color: #e2e2e2;
+    background-color: #e2e2e2;
+}
+
+.resourcecard_btmbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
 }
 
 .resourcecard_comments {
-margin-top: 12px;
-border-top: 1px solid #ddd;
-padding-top: 8px;
+    margin-top: 12px;
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
 }
 
 .resourcecard_comment {
-font-size: 0.9rem;
-margin: 6px 0;
-line-height: 1.4;
+    font-size: 0.9rem;
+    margin: 6px 0;
+    line-height: 1.4;
 }
 
 .resourcecard_commentForm {
-display: flex;
-gap: 8px;
-margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 .resourcecard_commentForm input {
-flex: 1;
-padding: 8px;
-border-radius: 6px;
-border: 1px solid #ccc;
-font-size: 0.9rem;
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
 }
 
 .resourcecard_commentForm button {
-padding: 8px 12px;
-background-color: #153448;
-color: white;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-font-size: 0.9rem;
+    padding: 8px 12px;
+    background-color: #153448;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .resourcecard_commentForm button:hover {
-background-color: #1a3a56;
+    background-color: #1a3a56;
 }
 
 @keyframes pop {
