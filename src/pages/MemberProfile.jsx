@@ -165,8 +165,8 @@ const MemberProfile = () => {
               </div>
 
               <div className={styles.task_info}>
-                <span>任務：{stats.completed}/{stats.total}</span>
-                <span>｜本週完成：{stats.completedThisWeek}</span>
+                <span>專案完成任務：{stats.completed}/{stats.total}</span>
+                <span>｜本週完成任務數：{stats.completedThisWeek}</span>
               </div>
             </div>
           );

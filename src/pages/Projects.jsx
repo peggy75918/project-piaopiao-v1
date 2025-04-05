@@ -70,7 +70,7 @@ function Projects() {
 
   return (
     <div className={styles.projectsContainer}>
-      <h2>選擇要進入的專案</h2>
+      <p className={styles.projects_title}>選擇要進入的專案</p>
       {projects.length === 0 ? (
         <p>⚠️ 目前沒有加入任何專案</p>
       ) : (

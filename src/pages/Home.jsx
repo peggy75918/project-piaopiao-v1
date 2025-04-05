@@ -240,13 +240,12 @@ function Home() {
             <p className={styles.home_op_text}>個人專案管理</p>
           </div>
         </Link>
+        </div>
         <Link to={'/notification'}>
-          <div>
-            <p>Attribution Page</p>
+          <div  className={styles.home_att}>
+            <p>Image Attribution</p>
           </div>
         </Link>
-      </div>
-
     </>
   );
 }

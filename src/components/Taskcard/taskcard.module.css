@@ -1,12 +1,28 @@
 .taskcard_container {
     display: flex;
+    position: relative;
     flex-direction: row;
     height: 140px;
     width: 100%;
     border-radius: 6px;
     background-color: #E8F3F6; /* 預設背景色 */
     position: relative;
+    overflow: hidden;
 }
+
+.taskcard_container::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.taskcard_container:active::after {
+    opacity: 1;
+  }
 
 /* 🟥 逾期任務 */
 .taskcard_bg_overdue {

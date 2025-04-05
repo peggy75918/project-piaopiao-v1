@@ -19,8 +19,8 @@
 .member_name {
   font-size: 16px;
   font-weight: 800;
-  margin-bottom: 4px;
   margin: 0;
+  margin-bottom: 6px;
 }
 
 .tag_area {
@@ -31,7 +31,7 @@
 }
 
 .tag_selected {
-  background-color: #4a90e2;
+  background-color: #89A8B2;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -57,8 +57,8 @@
 
 .custom_tag_btn {
   background-color: #fff;
-  color: #4a90e2;
-  border: 1px dashed #4a90e2;
+  color: #89A8B2;
+  border: 1px dashed #89A8B2;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -102,11 +102,11 @@
 .button_row button {
   margin: 0 6px;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
   border: none;
-  background-color: #4a90e2;
+  background-color: #89A8B2;
   color: white;
 }
 

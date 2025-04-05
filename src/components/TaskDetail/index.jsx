@@ -407,7 +407,7 @@ const TaskDetail = ({ taskId, onClose }) => {
       <div className={styles.taskdetail_btnContainer}>
         <button className={styles.taskdetail_closeButton} onClick={onClose}>返回</button>
         <button className={styles.taskdetail_deleteButton} onClick={handleDelete}>刪除</button>
-        <button className={styles.taskdetail_completeButton} onClick={handleComplete}>完成任務</button>
+        <button className={styles.taskdetail_completeButton} onClick={handleComplete}>完成全部</button>
       </div>
     </div>
   );

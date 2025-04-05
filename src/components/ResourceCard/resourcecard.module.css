@@ -110,18 +110,19 @@
     font-size: 0.9rem;
 }
 
+.resourcecard_commentForm input:focus {
+    outline: none;
+    border-color: #D6DAC8;
+}
+
 .resourcecard_commentForm button {
     padding: 8px 12px;
-    background-color: #153448;
+    background-color: #798777;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-}
-
-.resourcecard_commentForm button:hover {
-    background-color: #1a3a56;
 }
 
 @keyframes pop {

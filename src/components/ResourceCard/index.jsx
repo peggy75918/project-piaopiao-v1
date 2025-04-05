@@ -169,8 +169,8 @@ const ResourceCard = ({ resource, currentUserId, selectedTag, onSelectTag, onDel
                   <div
                       className={styles.resourcecard_tag}
                       style={{
-                      color: selectedTag === resource.tag ? "white" : "#153448",
-                      backgroundColor: selectedTag === resource.tag ? "#153448" : "#e0e0e0",
+                      color: selectedTag === resource.tag ? "white" : "#566654",
+                      backgroundColor: selectedTag === resource.tag ? "#798777" : "#e0e0e0",
                       }}
                       onClick={() => onSelectTag(resource.tag)}
                   >
@@ -231,17 +231,17 @@ const ResourceCard = ({ resource, currentUserId, selectedTag, onSelectTag, onDel
                     </span>
                     {reply.user_id === currentUserId && (
                         <button
-                        style={{
-                            marginLeft: "8px",
-                            fontSize: "0.8rem",
-                            color: "#c00",
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer",
-                        }}
-                        onClick={() => handleDeleteReply(reply.id)}
+                          style={{
+                              marginLeft: "8px",
+                              fontSize: "0.8rem",
+                              color: "#c00",
+                              background: "none",
+                              border: "none",
+                              cursor: "pointer",
+                          }}
+                          onClick={() => handleDeleteReply(reply.id)}
                         >
-                        刪除
+                          刪除
                         </button>
                     )}
                     </div>
