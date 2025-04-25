@@ -69,6 +69,10 @@ const SuggestionCard = ({ task, currentUser }) => {
       setNewComment(myFeedback.content);
       setRating(myFeedback.rating);
       setMyCommentId(myFeedback.id);
+    } else {
+      setNewComment("");
+      setRating(3);
+      setMyCommentId(null);
     }
 
     const reflectionData = data.find((f) => f.is_reflection && f.user_id === task.assignee_id);
@@ -84,7 +88,7 @@ const SuggestionCard = ({ task, currentUser }) => {
     if (myCommentId) {
       await supabase
         .from("task_feedbacks")
-        .update({ content: newComment, rating })
+        .update({ content: newComment, rating, is_reflection: false })
         .eq("id", myCommentId);
     } else {
       await supabase.from("task_feedbacks").insert({
@@ -124,7 +128,7 @@ const SuggestionCard = ({ task, currentUser }) => {
         task_id: task.id,
         user_id: currentUser,
         content: reflection,
-        is_reflection: true,
+        is_reflection: true
       });
     }
     alert("✅ 反思已成功送出");
@@ -132,12 +136,11 @@ const SuggestionCard = ({ task, currentUser }) => {
     fetchFeedbacks();
   };
 
-  const avgRating = feedbacks.length > 0
-    ? Math.round(
-        feedbacks.filter(f => !f.is_reflection && f.rating).reduce((sum, f) => sum + f.rating, 0) /
-          feedbacks.filter(f => !f.is_reflection && f.rating).length || 1
-      )
-    : null;
+  const ratedFeedbacks = feedbacks.filter(f => !f.is_reflection && typeof f.rating === "number");
+  const avgRating =
+    ratedFeedbacks.length > 0
+      ? Math.round(ratedFeedbacks.reduce((sum, f) => sum + f.rating, 0) / ratedFeedbacks.length)
+      : null;
 
   return (
     <div className={styles.suggestion_card}>
@@ -179,9 +182,12 @@ const SuggestionCard = ({ task, currentUser }) => {
               )}
             </div>
           ))}
-          {avgRating && (
-            <p className={styles.suggestion_avg}>⭐ 平均評分：{avgRating}</p>
+          {avgRating !== null && (
+            <p className={styles.suggestion_avg}>
+              ⭐ {avgRating > 0 ? `平均評分：${avgRating}` : "尚未評分"}
+            </p>
           )}
+
       </div>
 
         {!showInputs ? (
