@@ -17,6 +17,7 @@ function Home() {
   const [project, setProject] = useState(null);
   const [newProjectName, setNewProjectName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const [progress, setProgress] = useState(0);
   const displayedProgress = progress; 
@@ -28,44 +29,40 @@ function Home() {
     const fetchData = async () => {
       const storedLineId = localStorage.getItem("line_id");
       const storedProjectId = localStorage.getItem("project_id");
-
+  
       if (!storedLineId || !storedProjectId) {
-        console.error("❌ 找不到 `line_id` 或 `project_id`");
+        console.warn("❌ 缺少 line_id 或 project_id，返回 Projects 頁面");
+        navigate("/projects");
         return;
       }
-
-      // 查詢使用者資訊
-      const { data: userData, error: userError } = await supabase
+  
+      // 🔹 先查 user
+      const { data: userData } = await supabase
         .from("users")
         .select("line_id, name, picture")
         .eq("line_id", storedLineId)
         .maybeSingle();
-
-      if (userError) {
-        console.error("❌ 讀取使用者資料失敗", userError);
-      } else {
-        setUser(userData);
-      }
-
-      // 查詢專案資訊
-      const { data: projectData, error: projectError } = await supabase
+      if (userData) setUser(userData);
+  
+      // 🔹 查 project
+      const { data: projectData } = await supabase
         .from("projects")
         .select("id, name")
         .eq("id", storedProjectId)
         .maybeSingle();
-
-      if (projectError) {
-        console.error("❌ 讀取專案資料失敗", projectError);
-      } else {
-        setProject(projectData);
-        setNewProjectName(projectData.name);
-        //確保專案 ID 存在後再計算進度
-        if (projectData?.id) {
-          calculateProjectProgress(projectData.id);
-        }
+  
+      if (!projectData) {
+        console.warn("⚠️ 找不到 project，返回 Projects 頁面");
+        navigate("/projects");
+        return;
       }
+  
+      setProject(projectData);
+      setNewProjectName(projectData.name);
+      await calculateProjectProgress(projectData.id);
+      setIsInitialized(true); // ✅ 標記完成初始化
     };
-
+  
     fetchData();
   }, []);
 
