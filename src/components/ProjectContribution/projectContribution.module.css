@@ -1,0 +1,23 @@
+.contribution_button {
+    background-color: #F4F6EC;
+    border: none;
+    color: #153448;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 0px;
+    padding-right: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+  
+.contribution_panel {
+    margin-top: 7px;
+    background-color: #fff;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1E293B;
+}
+  

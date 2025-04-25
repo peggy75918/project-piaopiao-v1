@@ -377,15 +377,22 @@ const TaskDetail = ({ taskId, onClose }) => {
               </>
             ) : (
               <>
-                {item.content}
-                <EditOutlined
-                  onClick={() => setEditingChecklist(item.id) || setTempValue(item.content)}
-                  className={styles.taskdetail_editicon}
-                />
-                <DeleteOutlined
-                  onClick={() => deleteChecklistItem(item.id)}
-                  style={{position: "absolute", right: "20px", marginTop: "9px"}}
-                />
+                <div className={styles.taskdetail_check_content}>
+                  {item.content}
+                </div>
+                <div className={styles.taskdetail_icon_group}>
+                  <EditOutlined
+                    onClick={() => {
+                      setEditingChecklist(item.id);
+                      setTempValue(item.content);
+                    }}
+                    className={styles.taskdetail_editicon}
+                  />
+                  <DeleteOutlined
+                    onClick={() => deleteChecklistItem(item.id)}
+                    className={styles.taskdetail_deleteicon}
+                  />
+                </div>
               </>
             )}
             <div style={{width: "100%", height: "1px", backgroundColor: "#89A8B2", marginBottom: "5px"}}></div>

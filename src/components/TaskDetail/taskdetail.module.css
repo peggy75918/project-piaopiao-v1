@@ -48,6 +48,32 @@
     margin-bottom: 5px;
 }
 
+.taskdetail_checklist li {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap; /* 允許小螢幕時換行 */
+    gap: 8px;
+    padding-bottom: 6px;
+    position: relative;
+}
+
+.taskdetail_check_content {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+  
+.taskdetail_icon_group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 5px;
+}
+  
+
 .taskdetail_newinput {
     padding: 5px;
     padding-left: 7px;

@@ -118,7 +118,10 @@ function Tasklist() {
             <Switcher 
                 stageCount={stageCount} 
                 selectedStage={selectedStage} 
-                setSelectedStage={setSelectedStage} 
+                setSelectedStage={(stage) => {
+                    setSelectedStage(stage);      // 切換階段
+                    setSelectedTask(null);        // 清除選取任務，回到列表
+                }} 
             />
 
             {!showAddTask ? (

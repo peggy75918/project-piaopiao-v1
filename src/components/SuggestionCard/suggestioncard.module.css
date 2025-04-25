@@ -1,0 +1,168 @@
+.suggestion_card {
+background-color: #E8F3F6;
+border-radius: 6px;
+padding: 16px;
+margin: 0;
+margin-bottom: 15px;
+}
+
+.suggestion_header {
+margin-bottom: 12px;
+}
+
+.suggestion_title {
+font-size: 16px;
+font-weight: bold;
+color: #153448;
+margin-bottom: 6px;
+}
+
+.suggestion_meta {
+font-size: 16px;
+color: #153448;
+margin-top: 6px;
+margin-bottom: 6px;
+}
+
+.suggestion_description {
+font-size: 16px;
+color: #153448;
+margin-bottom: 6px;
+}
+
+.suggestion_checklist_btn {
+    background-color: #E8F3F6;
+    border: none;
+    color: #153448;
+    font-size: 16px;
+    padding: 0;
+    font-weight: 700;
+}
+
+.suggestion_checklist {
+    margin: 3px;
+    padding-left: 23px;
+}
+
+.suggestion_label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding-top: 10px;
+    border-top: 1px dashed #bbb;
+}
+
+.suggestion_comment_list {
+    margin-top: 10px;
+}
+    
+.suggestion_comment {
+    background-color: #fff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.suggestion_user {
+    flex-shrink: 0;
+    font-weight: 500;
+    color: #1a3c5c;
+}
+
+.suggestion_comment_content {
+    width: 100%;
+}
+    
+.suggestion_delete_btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #cc0000;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.suggestion_avg {
+    font-size: 0.95rem;
+    color: #1a3c5c;
+    margin: 5px 0 5px 0;
+}
+
+.suggestion_comment_inputbtn {
+    width: 100%;
+    background-color: #153448;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+
+.suggestion_my_comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion_input {
+padding: 8px;
+border-radius: 6px;
+border: 1px solid #ccc;
+margin-bottom: 10px;
+font-size: 1rem;
+}
+
+.suggestion_slider {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+font-size: 0.95rem;
+}
+
+.suggestion_submitbtn {
+    background-color: #153448;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+
+.suggestion_reflection_section {
+    margin-top: 6px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion_reflection_text {
+    font-size: 16px;
+    color: #153448;
+    margin: 5px 0 5px 0;
+}
+
+.suggestion_reflection_btn {
+    background-color: #153448;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+
+.suggestion_card textarea {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+  

@@ -1,0 +1,117 @@
+.personal_cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+  
+.personal_card {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #F4F6EC;
+}
+
+.personal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.personal_toggle_group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+  
+.personal_toggle_label {
+    font-size: 14px;
+    color: #1E293B;
+    margin-bottom: 8px;
+}
+
+.personal_projname {
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1E293B;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.personal_switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    margin-bottom: 8px;
+}
+  
+.personal_switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.personal_slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+  
+.personal_slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+  
+.personal_switch input:checked + .personal_slider {
+    background-color: #798777;
+}
+  
+.personal_switch input:checked + .personal_slider:before {
+    transform: translateX(20px);
+}
+  
+.personal_btn {
+    margin-top: 12px;
+    background-color: #798777;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+  
+.personal_btn:hover {
+    background-color: #1a5178;
+}
+
+.personal_btnGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+  
+.personal_report_btn {
+    margin-top: 12px;
+    background: #798777;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+  
+.personal_report_btn:hover {
+    background: #1a5178;
+}

@@ -15,6 +15,16 @@ const Topbar = ({ projectId: propProjectId }) => {
   // 優先使用 `propProjectId`，否則從 `useParams()` 或 `localStorage` 獲取
   const finalProjectId = propProjectId || paramProjectId || localStorage.getItem("project_id");
 
+  const getPageLabel = (path) => {
+    if (path.startsWith("/tasklist")) return "任務清單";
+    if (path.startsWith("/progress")) return "進度追蹤";
+    if (path.startsWith("/cloud")) return "資料共享";
+    if (path.startsWith("/suggestion")) return "建議箱";
+    if (path.startsWith("/memberprofile")) return "專案成員資料";
+    if (path.startsWith("/personal")) return "個人專案管理";
+    return "首頁";
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const userInfo = await initLiff();
@@ -49,7 +59,9 @@ const Topbar = ({ projectId: propProjectId }) => {
         <MenuUnfoldOutlined />
       </button>
 
-      <p className={styles.topbar_project_name}>{projectName}</p>
+      <p className={styles.topbar_project_name}>
+        {projectName} ∥ {getPageLabel(location.pathname)}
+      </p>
       <div className={styles.topbar_space}></div>
 
       {visible && (
